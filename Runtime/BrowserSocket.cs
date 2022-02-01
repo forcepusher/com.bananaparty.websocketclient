@@ -61,5 +61,10 @@ namespace BananaParty.WebSocketClient
 
         [DllImport("__Internal")]
         private static extern void BrowserSocketDisconnect(int socketIndex);
+
+        public void Dispose()
+        {
+            Disconnect();
+        }
     }
 }

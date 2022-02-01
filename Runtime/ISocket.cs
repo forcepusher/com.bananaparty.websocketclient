@@ -1,6 +1,8 @@
+using System;
+
 namespace BananaParty.WebSocketClient
 {
-    public interface ISocket
+    public interface ISocket : IDisposable
     {
         bool IsConnected { get; }
 

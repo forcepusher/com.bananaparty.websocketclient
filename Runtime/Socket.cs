@@ -2,7 +2,7 @@
 
 namespace BananaParty.WebSocketClient
 {
-    public class Socket : ISocket, IDisposable
+    public class Socket : ISocket
     {
         private readonly string _serverAddress;
 
@@ -49,7 +49,7 @@ namespace BananaParty.WebSocketClient
         public void Dispose()
         {
             if (_webSocketClient != null)
-                Disconnect();
+                _webSocketClient.Dispose();
         }
     }
 }

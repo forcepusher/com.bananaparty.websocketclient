@@ -113,5 +113,10 @@ namespace BananaParty.WebSocketClient
         ConnectionAborted:
             _clientWebSocket.Dispose();
         }
+
+        public void Dispose()
+        {
+            Disconnect();
+        }
     }
 }
