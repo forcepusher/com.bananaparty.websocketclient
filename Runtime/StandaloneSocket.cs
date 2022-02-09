@@ -12,6 +12,7 @@ namespace BananaParty.WebSocketClient
         private const int MaxPayloadChunkSize = 1024;
 
         private readonly Uri _serverUri;
+        private readonly bool _useTextMessages;
 
         private readonly ClientWebSocket _clientWebSocket = new();
         private readonly CancellationTokenSource _disconnectTokenSource = new();
@@ -24,9 +25,10 @@ namespace BananaParty.WebSocketClient
 
         public byte[] ReadPayloadQueue() => _payloadQueue.Dequeue();
 
-        public StandaloneSocket(string serverAddress)
+        public StandaloneSocket(string serverAddress, bool useTextMessages = false)
         {
             _serverUri = new Uri(serverAddress);
+            _useTextMessages = useTextMessages;
         }
 
         public void Connect()
@@ -54,7 +56,7 @@ namespace BananaParty.WebSocketClient
             {
                 var payloadBytesSegment = new ArraySegment<byte>(payloadBytes, payloadBytesSent, Math.Min(payloadBytes.Length - payloadBytesSent, MaxPayloadChunkSize));
                 bool isFinalChunk = payloadBytesSegment.Offset + payloadBytesSegment.Count >= payloadBytes.Length;
-                await _clientWebSocket.SendAsync(payloadBytesSegment, WebSocketMessageType.Binary, isFinalChunk, _disconnectTokenSource.Token);
+                await _clientWebSocket.SendAsync(payloadBytesSegment, _useTextMessages ? WebSocketMessageType.Text : WebSocketMessageType.Binary, isFinalChunk, _disconnectTokenSource.Token);
                 payloadBytesSent += payloadBytesSegment.Count;
             }
         }

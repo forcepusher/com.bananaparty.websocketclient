@@ -23,7 +23,7 @@ const library = {
       return payloadBytesCount;
     },
 
-    browserSocketConnect: function (serverAddress) {
+    browserSocketConnect: function (serverAddress, useTextMessages) {
       const webSocket = new WebSocket(serverAddress);
       webSocket.binaryType = 'arraybuffer';
 
@@ -41,14 +41,21 @@ const library = {
         }
       }
 
-      const socket = { webSocket: webSocket, payloadQueue: payloadQueue };
+      const socket = { webSocket: webSocket, useTextMessages: useTextMessages, payloadQueue: payloadQueue };
 
       const socketIndex = browserSocket.sockets.push(socket) - 1;
       return socketIndex;
     },
 
     browserSocketSend: function (socketIndex, payloadBytes) {
-      browserSocket.sockets[socketIndex].webSocket.send(payloadBytes);
+      var payload;
+      if (browserSocket.sockets[socketIndex].useTextMessages) {
+        payload = new TextDecoder().decode(payloadBytes);
+      } else {
+        payload = payloadBytes;
+      }
+
+      browserSocket.sockets[socketIndex].webSocket.send(payload);
     },
 
     browserSocketDisconnect: function (socketIndex) {
@@ -71,9 +78,10 @@ const library = {
     return browserSocket.browserSocketReadPayloadQueue(socketIndex, payloadBytesBufferPtr, payloadBytesBufferLength);
   },
 
-  BrowserSocketConnect: function (serverAddressPtr) {
+  BrowserSocketConnect: function (serverAddressPtr, useTextMessagesInt) {
     const serverAddress = UTF8ToString(serverAddressPtr);
-    return browserSocket.browserSocketConnect(serverAddress);
+    const useTextMessages = !!useTextMessagesInt; // Convert integer to boolean.
+    return browserSocket.browserSocketConnect(serverAddress, useTextMessages);
   },
 
   BrowserSocketSend: function (socketIndex, payloadBytesPtr, payloadBytesCount) {

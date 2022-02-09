@@ -1,8 +1,9 @@
 {
   "name": "com.bananaparty.websocketclient",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "type": "library",
   "displayName": "WebSocket Client",
   "unity": "2021.2",
-  "description": "Fully cross-platform websocket client."
+  "description": "Fully cross-platform websocket client.",
+  "author": "github.com/forcepusher"
 }
