@@ -1,8 +1,7 @@
 # com.bananaparty.websocketclient  
   
 Unity package. Fully cross-platform WebSocket client library.  
-Supports secure `wss://` connections.
-Does not reference Unity Engine, so it could be used in a regular C# project.  
+Supports secure `wss://` connections out of the box.  
   
 Make sure you have standalone [Git](https://git-scm.com/downloads) installed first. Reboot after installation.  
 In Unity, open "Window" -> "Package Manager".  
