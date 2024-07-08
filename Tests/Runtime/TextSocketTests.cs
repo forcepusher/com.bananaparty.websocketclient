@@ -19,7 +19,7 @@ namespace BananaParty.WebSocketClient.Tests
         public IEnumerator ConnectToServer()
         {
             // If this echo test site dies, use "ws://ws.ifelse.io"
-            _socket = new("ws://echo.websocket.events", true);
+            _socket = new("wss://echo.websocket.events", true);
 
             Assert.IsFalse(_socket.IsConnected, $"{nameof(_socket.IsConnected)} is {true} immediately after creation.");
 
