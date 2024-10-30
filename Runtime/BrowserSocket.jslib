@@ -1,4 +1,4 @@
-const library = {
+const browserSocketLibrary = {
 
   // Class definition.
 
@@ -94,5 +94,5 @@ const library = {
   },
 };
 
-autoAddDeps(library, '$browserSocket');
-mergeInto(LibraryManager.library, library);
+autoAddDeps(browserSocketLibrary, '$browserSocket');
+mergeInto(LibraryManager.library, browserSocketLibrary);

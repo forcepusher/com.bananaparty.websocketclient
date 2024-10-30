@@ -1,6 +1,6 @@
 {
   "name": "com.bananaparty.websocketclient",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "type": "library",
   "displayName": "WebSocket Client",
   "unity": "2021.2",
